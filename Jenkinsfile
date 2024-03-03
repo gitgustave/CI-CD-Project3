@@ -31,7 +31,49 @@ pipeline {
                 }
             }
         }
+        // Artifact start here
+             stage ('Artifactory configuration') {
+            steps {
+                rtServer (
+                    id: "jfrog-server",
+                    url: "http://192.168.1.35:8082/artifactory",
+                    credentialsId: "jfrog"
+                )
 
+                rtMavenDeployer (
+                    id: "MAVEN_DEPLOYER",
+                    serverId: "jfrog-server",
+                    releaseRepo: "libs-release-local",
+                    snapshotRepo: "libs-snapshot-local"
+                )
+
+                rtMavenResolver (
+                    id: "MAVEN_RESOLVER",
+                    serverId: "jfrog-server",
+                    releaseRepo: "libs-release",
+                    snapshotRepo: "libs-snapshot"
+                )
+            }
+         }
+         stage ('Deploy Artifacts') {
+            steps {
+                rtMavenRun (
+                    tool: "maven", 
+                    pom: 'webapp/pom.xml',
+                    goals: 'clean install',
+                    deployerId: "MAVEN_DEPLOYER",
+                    resolverId: "MAVEN_RESOLVER"
+                )
+            }
+         }
+         stage ('Publish build info') {
+            steps {
+                rtPublishBuildInfo (
+                    serverId: "jfrog-server"
+             )
+            }
+         }
+// Artifact done
     }
 }
 
