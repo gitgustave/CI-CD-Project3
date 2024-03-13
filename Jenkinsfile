@@ -66,8 +66,8 @@ pipeline {
            //         resolverId: "MAVEN_RESOLVER"
             //    )
              //   }
-            }
-         }
+            
+         //}
          stage ('Publish build info') {
             steps {
                 rtPublishBuildInfo (
@@ -75,7 +75,9 @@ pipeline {
              )
             }
          }
+            
 // Artifact done
     }
 }
+
 
