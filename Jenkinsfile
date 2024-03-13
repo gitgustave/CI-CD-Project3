@@ -12,13 +12,13 @@ pipeline {
 
         stage("Checkout from SCM"){
             steps{
-                git branch: 'main', credentialsId: 'gitgustave', url: 'https://github.com/gitgustave/CI-CD-Project2'
+                git branch: 'main', credentialsId: 'gitgustave', url: 'https://github.com/gitgustave/CI-CD-Project3'
             }
         }
 
         stage("Build Application "){
             steps{
-                dir('project2') { 
+                dir('project3') { 
                 sh "mvn clean"
                 }
             }
@@ -26,7 +26,7 @@ pipeline {
 
         stage("Test Application"){
             steps{
-                dir('project2'){ 
+                dir('project3'){ 
                 sh "mvn test"
                 }
             }
