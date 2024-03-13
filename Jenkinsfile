@@ -59,7 +59,7 @@ pipeline {
             steps { 
                 dir ('project3'){ 
                 rtMavenRun (
-                    tool: "maven_hone", 
+                    tool: "maven_home", 
                     pom: 'pom.xml',
                     goals: 'clean install',
                     deployerId: "MAVEN_DEPLOYER",
