@@ -56,14 +56,16 @@ pipeline {
             }
          }
          stage ('Deploy Artifacts') {
-            steps {
+            steps { 
+                dir ('project3'){ 
                 rtMavenRun (
                     tool: "maven_hone", 
-                    pom: 'webapp/pom.xml',
+                    pom: 'pom.xml',
                     goals: 'clean install',
                     deployerId: "MAVEN_DEPLOYER",
                     resolverId: "MAVEN_RESOLVER"
                 )
+                }
             }
          }
          stage ('Publish build info') {
