@@ -73,10 +73,10 @@ pipeline {
             }
         }
 
-         stage('Push image to docker hub'){
+        stage('Push image to docker hub'){
             steps{
                 script{
-                    withCredentials([string(credentialsId:'dockerhub', variable:'Docker-cred' )]) {
+                    withCredentials([string(credentialsId:'gustavepablo4', variable:'Docker-cred' )]) {
                         sh 'docker login -u gustavepablo4 -p ${Docker-cred' }
                     }
                     sh 'docker push mvnapp1 '
