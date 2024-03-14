@@ -72,6 +72,8 @@ pipeline {
             steps {
                 rtPublishBuildInfo (
                     serverId: "jfrog-server"
+                    credentialsId: "jfrog"
+                    url: "http://192.168.1.35:8082/artifactory"
              )
             }
          }
