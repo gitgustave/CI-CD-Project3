@@ -38,7 +38,7 @@ pipeline {
          stage ('SonarQube Analysis') {
             steps {
               withSonarQubeEnv('SonarQube-Server') {
-                dir('webapp'){
+                dir('project3'){
                 sh 'mvn -U clean install sonar:sonar'
                 }
               }  
