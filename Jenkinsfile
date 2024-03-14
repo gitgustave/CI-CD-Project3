@@ -44,7 +44,7 @@ pipeline {
             }
         }
         // Artifact start here
-             stage ('Artifactory configuration') {
+        stage ('Artifactory configuration') {
             steps {
                 rtServer (
                     id: "jfrog-server",
@@ -68,7 +68,7 @@ pipeline {
             }
          }
 
-         stage ('Deploy Artifacts') {
+        stage ('Deploy Artifacts') {
             steps { 
                 dir ('project3'){ 
                 rtMavenRun (
@@ -79,6 +79,8 @@ pipeline {
                     resolverId: "MAVEN_RESOLVER"
                 )
            }
+        }
+        }
             
          //}
          //stage ('Publish build info') {
@@ -102,7 +104,8 @@ pipeline {
              }
          }               
     }
-}
+ }
+
             
 // Artifact done
     
