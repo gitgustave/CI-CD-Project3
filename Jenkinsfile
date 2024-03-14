@@ -35,15 +35,7 @@ pipeline {
                 }
             }
         }
-         stage ('SonarQube Analysis') {
-            steps {
-              withSonarQubeEnv('SonarQube-Server') {
-                dir('project3'){
-                sh 'mvn -U clean install sonar:sonar'
-                }
-              }  
-            }
-         }
+
         stage("Test Application"){
             steps{
                 dir('project3'){ 
@@ -88,22 +80,17 @@ pipeline {
              //   }
             
          //}
-         stage ('Publish build info') {
-            steps {
-                rtPublishBuildInfo (
-                    serverId: "jfrog-server"
-             )
+         //stage ('Publish build info') {
+         //   steps {
+           //     rtPublishBuildInfo (
+            //        serverId: "jfrog-server"
+             //)
 
-                 rtServer (
-                    id: "jfrog-server",
-                    url: "http://192.168.1.35:8082/artifactory",
-                    credentialsId: "jfrog"
-                )
+                
             }
          }
             
 // Artifact done
-    }
-}
+    
 
 
