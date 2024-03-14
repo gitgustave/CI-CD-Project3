@@ -15,7 +15,7 @@ pipeline {
         RELEASE = "1.0.0"
         DOCKER_USER = "gustavepablo4"
         DOCKER_PASS = 'Docker-cred'
-        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        IMAGE_NAME = "${DOCKER_USER}" + " " + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
 	
     }
