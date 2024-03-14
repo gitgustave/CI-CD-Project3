@@ -79,7 +79,7 @@ pipeline {
                   //  withCredentials([string(credentialsId:'Docker-cred', variable:'Docker-cred' )]) {
                         sh 'docker login -u gustavepablo4 -p ${Docker-cred}' 
                     }
-                    sh 'docker push mvnapp1 '
+                   //  sh 'docker push mvnapp1 '
                 }
         
 
