@@ -66,21 +66,26 @@ pipeline {
                     snapshotRepo: "libs-snapshot"
                 )
             }
-         }
+        }
+        stage('Build docker image'){
+            steps{
+                sh 'docker build -t mvnapp1 .'
+            }
+        }
 
-        stage ('Deploy Artifacts') {
-            steps { 
-                dir ('project3'){ 
-                rtMavenRun (
-                    tool: "maven_home", 
-                    pom: 'pom.xml',
-                    goals: 'clean install',
-                    deployerId: "MAVEN_DEPLOYER",
-                    resolverId: "MAVEN_RESOLVER"
-                )
-           }
-        }
-        }
+        // stage ('Deploy Artifacts') {
+           // steps { 
+              //  dir ('project3'){ 
+            //    rtMavenRun (
+                 //   tool: "maven_home", 
+               //     pom: 'pom.xml',
+              //      goals: 'clean install',
+            //        deployerId: "MAVEN_DEPLOYER",
+          //          resolverId: "MAVEN_RESOLVER"
+        //        )
+       //    }
+       // }
+       // }
             
          //}
          //stage ('Publish build info') {
@@ -90,19 +95,20 @@ pipeline {
              //)
 
 
-          stage("Build & Push Docker Image") {
-             steps {
-                 script {
-                     docker.withRegistry('',DOCKER_PASS) {
-                         docker_image = docker.build "${IMAGE_NAME}"
-                     }
-                     docker.withRegistry('',DOCKER_PASS) {
-                         docker_image.push("${IMAGE_TAG}")
-                         docker_image.push('latest')
-                     }
-                 }
-             }
-         }               
+         // stage("Build & Push Docker Image") {
+            // steps {
+               //  script {
+                   //  docker.withRegistry('',DOCKER_PASS) {
+                    //     docker_image = docker.build "${IMAGE_NAME}"
+                  //   }
+                //     docker.withRegistry('',DOCKER_PASS) {
+                   //      docker_image.push("${IMAGE_TAG}")
+                 //        docker_image.push('latest')
+               //      }
+             //    }
+           //  }
+         //}  
+
     }
  }
 
