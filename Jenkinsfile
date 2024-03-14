@@ -82,7 +82,7 @@ pipeline {
                     sh 'docker push mvnapp1 '
                 }
             }
-        }
+
 
         // stage ('Deploy Artifacts') {
            // steps { 
