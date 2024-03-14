@@ -15,7 +15,7 @@ pipeline {
         RELEASE = "1.0.0"
         DOCKER_USER = "gustavepablo4"
         DOCKER_PASS = 'Docker-cred'
-        IMAGE_NAME = "${DOCKER_USER}" + " " + "${APP_NAME}"
+        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
 	
     }
@@ -70,6 +70,17 @@ pipeline {
         stage('Build docker image'){
             steps{
                 sh 'docker build -t mvnapp1 .'
+            }
+        }
+
+         stage('Push image to docker hub'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId:'dockerhub', variable:'Docker-cred' )]) {
+                        sh 'docker login -u gustavepablo4 -p ${Docker-cred' }
+                    }
+                    sh 'docker push mvnapp1 '
+                }
             }
         }
 
