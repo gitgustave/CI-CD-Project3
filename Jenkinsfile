@@ -77,7 +77,8 @@ pipeline {
             steps{
                 //script{
                   //  withCredentials([string(credentialsId:'Docker-cred', variable:'Docker-cred' )]) {
-                        sh 'docker login -u gustavepablo4 -p ${Docker-cred}' 
+                       // sh 'docker login -u gustavepablo4 -p ${Docker-cred}' 
+                        sh 'docker tag mvnapp1:latest gustavepablo4/project3 && docker push gustavepablo4/project3 '
                     }
                    //  sh 'docker push mvnapp1 '
                 }
