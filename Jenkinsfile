@@ -82,7 +82,8 @@ pipeline {
                     }
                    //  sh 'docker push mvnapp1 '
                 }
-        
+            }
+        }
 
 
         // stage ('Deploy Artifacts') {
@@ -120,9 +121,11 @@ pipeline {
              //    }
            //  }
          //}  
-
+            
     }
- }
+  }
+
+
 
             
 // Artifact done
