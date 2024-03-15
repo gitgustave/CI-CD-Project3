@@ -89,6 +89,35 @@ pipeline {
              }
          }
 
+         stage("Trivy Image Scan") {
+             steps {
+                 script {
+	                  sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ashfaque9x/java-registration-app:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table > trivyimage.txt')
+                 }
+             }
+         }
+         stage ('Cleanup Artifacts') {
+             steps {
+                 script {
+                      sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
+                      sh "docker rmi ${IMAGE_NAME}:latest"
+                 }
+             }
+         }
+         stage('Deploy to Kubernets'){
+             steps{
+                 script{
+                      dir('Kubernetes') {
+                         kubeconfig(credentialsId: 'kubernetes', serverUrl: '') {
+                         sh 'kubectl apply -f deployment.yml'
+                         sh 'kubectl apply -f service.yml'
+                         sh 'kubectl rollout restart deployment.apps/registerapp-deployment'
+                         }   
+                      }
+                 }
+             }
+         }
+
 
         // stage ('Deploy Artifacts') {
            // steps { 
