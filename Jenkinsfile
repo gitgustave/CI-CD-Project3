@@ -73,17 +73,33 @@ pipeline {
             }
         }
 
-        stage('Push image to docker hub'){
-            steps{
-                script{
-                    withCredentials([string(credentialsId:'Docker-cred', variable:'Docker-cred' )]) {
-                        sh 'docker login -u gustavepablo4 -p ${Docker-cred} && docker tag mvnapp1:latest gustavepablo4/project3 && docker push gustavepablo4/project3' 
-                        //sh 'docker tag mvnapp1:latest gustavepablo4/project3 && docker push gustavepablo4/project3 '
-                    }
+
+         stage("Build & Push Docker Image") {
+             steps {
+                 script {
+                     docker.withRegistry('',DOCKER_PASS) {
+                         docker_image = docker.build "${IMAGE_NAME}"
+                     }
+                     docker.withRegistry('',DOCKER_PASS) {
+                         docker_image.push("${IMAGE_TAG}")
+                         docker_image.push('latest')
+                     }
+                 }
+             }
+         }
+
+
+    //    stage('Push image to docker hub'){
+      //      steps{
+        //        script{
+          //          withCredentials([string(credentialsId:'Docker-cred', variable:'Docker-cred' )]) {
+            //            sh 'docker login -u gustavepablo4 -p ${Docker-cred} && docker tag mvnapp1:latest gustavepablo4/project3 && docker push gustavepablo4/project3' 
+              //          //sh 'docker tag mvnapp1:latest gustavepablo4/project3 && docker push gustavepablo4/project3 '
+                //    }
                    //  sh 'docker push mvnapp1 '
-                }
-            }
-        }
+             //   }
+          //  }
+       // }
 
 
         // stage ('Deploy Artifacts') {
