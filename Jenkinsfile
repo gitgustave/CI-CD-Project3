@@ -92,7 +92,7 @@ pipeline {
          stage("Trivy Image Scan") {
              steps {
                  script {
-	                  sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ashfaque9x/java-registration-app:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table > trivyimage.txt')
+	                  sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image gustavepablo4/project3:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table > trivyimage.txt')
                  }
              }
          }
