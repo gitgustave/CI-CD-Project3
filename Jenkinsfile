@@ -108,7 +108,7 @@ pipeline {
              steps{
                  script{
                       dir('Kubernetes') {
-                         kubeconfig(credentialsId: 'k8s', serverUrl: '') {
+                         kubeconfig(credentialsId: 'k8s', serverUrl: 'https://192.168.1.35:6443/') {
                          sh 'kubectl apply -f deployment.yml'
                          sh 'kubectl apply -f service.yml'
                          sh 'kubectl rollout restart deployment.apps/registerapp-deployment'
